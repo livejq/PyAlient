@@ -5,7 +5,9 @@ class GameStatus():
         """初始化统计信息"""
         
         # 无论如何都不能重置
-        self.high_score = 0
+        with open(ai_settings.file_path) as file:
+            scores = file.read()
+        self.high_score = int(scores)
         
         self.ai_settings = ai_settings
         self.reset_status()

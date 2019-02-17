@@ -1,3 +1,4 @@
+import pygame
 import random
 
 class Settings():
@@ -6,9 +7,18 @@ class Settings():
     def __init__(self):
         """初始化游戏的设置"""
         
+        # 加载音频文件
+        pygame.mixer.init()
+        pygame.mixer.music.set_volume(0.6) # 音量
+        pygame.mixer.music.load('sound/fighting.mp3')
+        pygame.mixer.music.play(-1)
+
         self.screen_width = 1200
-        self.screen_height = 900
-        self.bg_color = (230, 230, 230)
+        self.screen_height = 950
+        self.bg_color = (230, 230, 230)        
+        
+        # 保存最高分数据文件的路径
+        self.file_path = 'data/high_score.txt'
         
         # 星星背景
         number = 30
@@ -22,10 +32,10 @@ class Settings():
         
         # 飞船的设置
         self.ship_speed_factor = 6
-        self.ship_limit = 2
+        self.ship_limit = 3
         
         # 子弹的设置
-        self.bullet_width = 800
+        self.bullet_width = 4
         self.bullet_height = 25
         self.bullet_color = 234, 45, 68
         self.bullets_allowed = 20
@@ -48,7 +58,7 @@ class Settings():
     def initialize_dynamic_settings(self):
         """初始化随游戏进度而变化的设置"""
         
-        self.bullet_speed_factor = 6
+        self.bullet_speed_factor = 4
         self.alien_speed_factor = 1
         
         # fleet_direction为1表示向右移，为-1表示向左移

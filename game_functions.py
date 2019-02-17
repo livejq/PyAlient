@@ -1,5 +1,5 @@
-import sys
 import pygame
+import sys
 from time import sleep
 
 from bullet import Bullet
@@ -16,7 +16,11 @@ def check_keydown_events(event, ai_settings, screen, status, sb, ship, aliens, b
         ship.moving_left = True
     elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings, screen, ship, bullets)
+        shoot_wav = pygame.mixer.Sound('sound/shoot.wav')
+        shoot_wav.set_volume(0.5)
+        shoot_wav.play(0)
     elif event.key == pygame.K_q:
+        save_data(ai_settings, status)
         sys.exit()
     elif event.key == pygame.K_p and not status.game_active:
         start_game(ai_settings, screen, status, sb, ship, aliens, bullets)
@@ -28,10 +32,17 @@ def check_keyup_events(event, ship):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
 
+def save_data(ai_settings, status):
+    """保存必要的统计信息"""
+    
+    with open(ai_settings.file_path, 'w') as file:
+        file.write(str(status.high_score))
+
 def check_events(ai_settings, screen, status, sb, play_button, ship, aliens, bullets):
     """响应按键和鼠标事件"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            save_data(ai_settings, status)
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, ai_settings, screen, status, sb, ship, aliens, bullets)
@@ -79,6 +90,8 @@ def ship_hit(ai_settings, screen, status, sb, ship, aliens, bullets):
     else:
         print("游戏结束\n\n")
         status.game_active = False
+        pygame.mixer.music.load('sound/fail.mp3')
+        pygame.mixer.music.play(-1)
         
         # 显示光标
         pygame.mouse.set_visible(True)
@@ -120,6 +133,8 @@ def start_game(ai_settings, screen, status, sb, ship, aliens, bullets):
     # 创建一群新的外星人，并让飞船居中
     create_fleet(ai_settings, screen, ship, aliens)
     ship.center_ship()
+    pygame.mixer.music.load('sound/fighting.mp3')
+    pygame.mixer.music.play(-1)
 
 
 
@@ -153,7 +168,13 @@ def check_bullet_alien_collisions(ai_settings, screen, status, sb, ship, aliens,
     if collisions:
         # 修复一个子弹打中几个外星人或两个子弹同时打中一个外星人的Bug情况
         for alien in collisions.values():
-            status.score += ai_settings.alien_points * len(alien)
+            killed = len(alien)
+            status.score += ai_settings.alien_points * killed
+            while killed:
+                blast_wav = pygame.mixer.Sound('sound/blast.wav')
+                blast_wav.set_volume(0.2)
+                blast_wav.play(0)
+                killed -= 1
             sb.prep_score()
         check_high_score(status, sb)
         
@@ -200,7 +221,7 @@ def get_number_aliens_x(ai_settings, alien_width):
 
 def get_number_rows(ai_settings, ship_height, alien_height):
     """计算屏幕可容纳多少行外星人"""
-    available_space_y = (ai_settings.screen_height - (3 * alien_height) - ship_height)
+    available_space_y = (ai_settings.screen_height - (20 * alien_height) - ship_height)
     number_rows = int(available_space_y / (2 * alien_height))
     return number_rows
     
@@ -211,7 +232,7 @@ def create_alien(ai_settings, screen, aliens, alien_number, row_number):
     alien_width = alien.rect.width
     alien.x = alien_width + 2 * alien_width * alien_number
     alien.rect.x = alien.x
-    alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
+    alien.rect.y = alien.rect.height * 4 + 2 * alien.rect.height * row_number
     aliens.add(alien)    
 
 def create_fleet(ai_settings, screen, ship, aliens):
