@@ -11,7 +11,10 @@ class Ship(Sprite):
         self.screen = screen
         
         # 加载飞船图像并获取其外接矩形
-        self.image = pygame.image.load('images/ship.png')
+        # 如果pygame.image.get_extended() 返回“True”，您应该能够加载大多数图像（包括PNG，JPG和GIF）
+        # 您通常希望 Surface.convert()不带参数调用，以创建一个可以在屏幕上更快地绘制的副本。
+        # 对于Alpha透明度，例如.png图像，请convert_alpha() 在加载后使用该方法，以使图像具有每像素透明度。
+        self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         
@@ -20,27 +23,36 @@ class Ship(Sprite):
         self.rect.bottom = self.screen_rect.bottom
         
         # 在飞船的属性center中存储小数值(rect的center等属性只能存储整数值)
-        self.center = float(self.rect.centerx)
+        self.centerx = float(self.rect.centerx)
+        self.centery = float(self.rect.bottom)
         
         # 移动标志
         self.moving_right = False
         self.moving_left = False
+        self.moving_up = False
+        self.moving_down = False
         
     def update(self):
         """根据移动的标志调整飞船的位置"""
         
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.center += self.ai_settings.ship_speed_factor
+            self.centerx += self.ai_settings.ship_speed_factor
         if self.moving_left and self.rect.left > 0:
-            self.center -= self.ai_settings.ship_speed_factor
+            self.centerx -= self.ai_settings.ship_speed_factor
+        if self.moving_up and self.rect.top > 0:
+            self.centery -= self.ai_settings.ship_speed_factor
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+            self.centery += self.ai_settings.ship_speed_factor
             
         # 根据self.center更新rect对象(很重要！)
-        self.rect.centerx = self.center
+        self.rect.centerx = int(self.centerx)
+        self.rect.bottom = int(self.centery)
         
     def center_ship(self):
         """让飞船在屏幕上居中"""
         
-        self.center = self.screen_rect.centerx
+        self.centerx = self.screen_rect.centerx
+        self.centery = self.screen_rect.bottom
         
     def blitme(self):
         """在指定位置绘制飞船"""
