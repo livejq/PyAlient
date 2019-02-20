@@ -54,4 +54,6 @@ def run_game():
             gf.update_bullets(ai_settings, screen, status, sb, ship, aliens, bullets, explosion)
             gf.update_aliens(ai_settings, screen, status, sb, ship, aliens, bullets, explosion, destroyed)
         gf.update_screen(ai_settings, screen, status, sb, ship, aliens, bullets, explosion, destroyed, play_button, once)
-run_game()
+        
+if __name__ == "__main__":
+    run_game()
