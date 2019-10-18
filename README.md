@@ -45,8 +45,78 @@ git reset --hard id(前6位即可)
 ![pygame_project.png](https://www.livejq.top/img/cut-pic/19-2-20/pygame_project.png)
 
 整个项目通过git版本控制，最后未能用pyinstaller-3.4打包。
-![pyinstaller_error.png](https://www.livejq.top/img/cut-pic/19-2-20/pyinstaller_error.png)
+
+- Windows 10下：
+
+![pyinstaller_error.png](/img/cut-pic/19-2-20/pyinstaller_error.png)
 对其它文件试着打包可以成功，就这个游戏不行。这个有待研究。
+
+- Linux Debian下：
+
+```bash
+74 INFO: PyInstaller: 3.5
+74 INFO: Python: 3.7.4
+74 INFO: Platform: Linux-4.19.0-kali5-amd64-x86_64-with-Kali-kali-rolling-kali-rolling
+1855 INFO: wrote /media/root/livejq/Python/python36_test/alien_invasion/alien_invasion.spec
+1868 INFO: UPX is available.
+1870 INFO: Extending PYTHONPATH with paths
+['/media/root/livejq/Python/python36_test/alien_invasion',
+ '/media/root/livejq/Python/python36_test/alien_invasion']
+1870 INFO: checking Analysis
+1871 INFO: Building Analysis because Analysis-00.toc is non existent
+1871 INFO: Initializing module dependency graph...
+1873 INFO: Initializing module graph hooks...
+1875 INFO: Analyzing base_library.zip ...
+5169 INFO: running Analysis Analysis-00.toc
+5207 INFO: Caching module hooks...
+5211 INFO: Analyzing /media/root/livejq/Python/python36_test/alien_invasion/alien_invasion.py
+6126 INFO: Processing pre-find module path hook   distutils
+7428 INFO: Processing pre-safe import module hook   setuptools.extern.six.moves
+7850 INFO: Processing pre-find module path hook   site
+7851 INFO: site: retargeting to fake-dir '/usr/local/lib/python3.7/dist-packages/PyInstaller/fake-modules'
+12214 INFO: Loading module hooks...
+12214 INFO: Loading module hook "hook-numpy.py"...
+12216 INFO: Loading module hook "hook-pkg_resources.py"...
+12588 INFO: Processing pre-safe import module hook   win32com
+12773 INFO: Loading module hook "hook-lib2to3.py"...
+12776 INFO: Loading module hook "hook-numpy.core.py"...
+12888 INFO: Loading module hook "hook-sysconfig.py"...
+12898 INFO: Loading module hook "hook-setuptools.py"...
+13435 INFO: Loading module hook "hook-OpenGL.py"...
+13528 INFO: Loading module hook "hook-pygame.py"...
+13529 WARNING: Hidden import "pygame._view" not found!
+13529 INFO: Loading module hook "hook-scipy.py"...
+13530 INFO: Loading module hook "hook-xml.py"...
+13602 INFO: Loading module hook "hook-encodings.py"...
+13655 INFO: Loading module hook "hook-distutils.py"...
+13656 INFO: Loading module hook "hook-pydoc.py"...
+13682 INFO: Looking for ctypes DLLs
+14019 INFO: Analyzing run-time hooks ...
+14028 INFO: Including run-time hook 'pyi_rth_pkgres.py'
+14031 INFO: Including run-time hook 'pyi_rth_multiprocessing.py'
+14049 INFO: Looking for dynamic libraries
+14668 INFO: Looking for eggs
+14668 INFO: Python library not in binary dependencies. Doing additional searching...
+14710 INFO: Using Python library /lib/x86_64-linux-gnu/libpython3.7m.so.1.0
+14725 INFO: Warnings written to /media/root/livejq/Python/python36_test/alien_invasion/build/alien_invasion/warn-alien_invasion.txt
+14817 INFO: Graph cross-reference written to /media/root/livejq/Python/python36_test/alien_invasion/build/alien_invasion/xref-alien_invasion.html
+14839 INFO: checking PYZ
+14839 INFO: Building PYZ because PYZ-00.toc is non existent
+14839 INFO: Building PYZ (ZlibArchive) /media/root/livejq/Python/python36_test/alien_invasion/build/alien_invasion/PYZ-00.pyz
+15782 INFO: Building PYZ (ZlibArchive) /media/root/livejq/Python/python36_test/alien_invasion/build/alien_invasion/PYZ-00.pyz completed successfully.
+15799 INFO: checking PKG
+15799 INFO: Building PKG because PKG-00.toc is non existent
+15799 INFO: Building PKG (CArchive) PKG-00.pkg
+22935 INFO: Building PKG (CArchive) PKG-00.pkg completed successfully.
+22937 INFO: Bootloader /usr/local/lib/python3.7/dist-packages/PyInstaller/bootloader/Linux-64bit/run
+22938 INFO: checking EXE
+22938 INFO: Building EXE because EXE-00.toc is non existent
+22938 INFO: Building EXE from EXE-00.toc
+22939 INFO: Appending archive to ELF section in EXE /media/root/livejq/Python/python36_test/alien_invasion/dist/alien_invasion
+23120 INFO: Building EXE from EXE-00.toc completed successfully.
+```
+
+linux下打包成功(=H=)，真奇怪呀～
 
 pyinstaller命令说明：
 ![pyinstaller.png](https://www.livejq.top/img/cut-pic/19-2-20/pyinstaller.png)
