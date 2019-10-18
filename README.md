@@ -1,8 +1,8 @@
 背景每次打开位置随机生成：
-![attack.png](https://livejq.github.io/img/cut-pic/19-2-20/attack.jpg)
+![attack.png](https://www.livejq.top/img/cut-pic/19-2-20/attack.jpg)
 
 飞船与外星人相撞（飞船可上下左右移动）：
-![collide.png](https://livejq.github.io/img/cut-pic/19-2-20/collide.jpg)
+![collide.png](https://www.livejq.top/img/cut-pic/19-2-20/collide.jpg)
 
 对于刚掌握一门高级语言基础的人来说，来点实战来巩固基础是再好不过的了。为此，Python编程：从入门到实践这本书也是本着这个原则才收到了广泛的好评吧。好了，话不多说，来进行最有意思的环节吧。
 
@@ -24,14 +24,14 @@ pip install --user pygame先安装主要的模块,pip list 查看第三方模块
 
 ### Git版本控制和PyInstaller打包exe
 
-![git.png](https://livejq.github.io/img/cut-pic/19-2-20/git.png)
+![git.png](https://www.livejq.top/img/cut-pic/19-2-20/git.png)
 
-![github.png](https://livejq.github.io/img/cut-pic/19-2-20/github.png)
+![github.png](https://www.livejq.top/img/cut-pic/19-2-20/github.png)
 
 git status查看文件状态  
 git add .将所有修改的文件加入提交的队列  
 git commit -m "messages"将所有文件提交到主分支中记录下来  
-git remote add origin https://github.com/livejq/  alien_invasion.git 与github中创建的仓库同步  
+git remote add origin https://github.com/livejq/alien_invasion.git 与github中创建的仓库同步  
 git push -u origin master 将主分支推送到github中同步的仓库中  
 
 在这之前得先使用git init在你的项目目录下初始化仓库(创建的.git文件就是一个记录文件更改数据)，然后通过git config --global user.name "username" git config --global user.email "username@example.com"这两条命令来创建一个账户（最好是github账户）,在项目目录下建立.gitignore文件,将不需要同步的文件或目录写入即可，例如：__pycache__/，最后如果版本混乱了则可以删除仓库重新创建，rm -rf .git；
@@ -42,14 +42,14 @@ git checkout id(前6位即可) 是分离头指针（离开了一个命名分支�
 git checkout -b new_branch_name  
 git reset --hard id(前6位即可)  
 
-![pygame_project.png](https://livejq.github.io/img/cut-pic/19-2-20/pygame_project.png)
+![pygame_project.png](https://www.livejq.top/img/cut-pic/19-2-20/pygame_project.png)
 
 整个项目通过git版本控制，最后未能用pyinstaller-3.4打包。
-![pyinstaller_error.png](https://livejq.github.io/img/cut-pic/19-2-20/pyinstaller_error.png)
+![pyinstaller_error.png](https://www.livejq.top/img/cut-pic/19-2-20/pyinstaller_error.png)
 对其它文件试着打包可以成功，就这个游戏不行。这个有待研究。
 
 pyinstaller命令说明：
-![pyinstaller.png](https://livejq.github.io/img/cut-pic/19-2-20/pyinstaller.png)
+![pyinstaller.png](https://www.livejq.top/img/cut-pic/19-2-20/pyinstaller.png)
 
 ### 项目分析
 
@@ -156,4 +156,4 @@ class MySprite(pygame.sprite.Sprite):
             self.image = self.master_image.subsurface(rect) # 新的Surface将从其父级继承调色板，颜色键和alpha设置
             self.old_frame = self.frame
 ```
-持续更新中...
+完结～
